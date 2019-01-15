@@ -1,4 +1,4 @@
-package com.rag.khavaranmessenger.reminder.addmedic.view.view;
+package com.rag.khavaranmessenger.reminder.addmedic.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,10 +14,10 @@ import android.widget.Toast;
 import com.developerman.data.database.DataRepository;
 import com.rag.khavaranmessenger.domian.intractor.saveintractor.SaveMedicUseCase;
 import com.rag.khavaranmessenger.reminder.R;
-import com.rag.khavaranmessenger.reminder.addmedic.view.SaveMedicListener;
+import com.rag.khavaranmessenger.reminder.addmedic.SaveMedicListener;
 import com.rag.khavaranmessenger.reminder.mapper.ViewModelMapper;
 import com.rag.khavaranmessenger.reminder.main.model.MedicModelApp;
-import com.rag.khavaranmessenger.reminder.addmedic.view.peresenter.SaveMedicPresenter;
+import com.rag.khavaranmessenger.reminder.addmedic.peresenter.SaveMedicPresenter;
 import com.rag.khavaranmessenger.reminder.ui.MainActivity;
 import com.rag.khavaranmessenger.reminder.main.view.MainFragment;
 

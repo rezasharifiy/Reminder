@@ -19,7 +19,7 @@ import com.rag.khavaranmessenger.domian.intractor.deleteintractor.DeleteMedicUse
 import com.rag.khavaranmessenger.domian.intractor.getintarctor.GetMedicUseCase;
 import com.rag.khavaranmessenger.reminder.R;
 import com.rag.khavaranmessenger.reminder.main.adapter.MedicAdapter;
-import com.rag.khavaranmessenger.reminder.addmedic.view.view.AddMedicFragment;
+import com.rag.khavaranmessenger.reminder.addmedic.view.AddMedicFragment;
 import com.rag.khavaranmessenger.reminder.mapper.ViewModelMapper;
 import com.rag.khavaranmessenger.reminder.main.model.MedicModelApp;
 import com.rag.khavaranmessenger.reminder.main.presenter.DeleteMedicPresenter;

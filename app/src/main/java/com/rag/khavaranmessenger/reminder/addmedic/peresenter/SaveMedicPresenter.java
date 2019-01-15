@@ -1,10 +1,10 @@
-package com.rag.khavaranmessenger.reminder.addmedic.view.peresenter;
+package com.rag.khavaranmessenger.reminder.addmedic.peresenter;
 
 import com.rag.khavaranmessenger.domian.intractor.saveintractor.SaveMedicUseCase;
 import com.rag.khavaranmessenger.domian.intractor.saveintractor.SaveUseCase;
 import com.rag.khavaranmessenger.reminder.mapper.ViewModelMapper;
 import com.rag.khavaranmessenger.reminder.main.model.MedicModelApp;
-import com.rag.khavaranmessenger.reminder.addmedic.view.SaveMedicListener;
+import com.rag.khavaranmessenger.reminder.addmedic.SaveMedicListener;
 
 public class SaveMedicPresenter implements SaveUseCase.InsertCallBack {
     private SaveMedicUseCase saveMedicUseCase;
