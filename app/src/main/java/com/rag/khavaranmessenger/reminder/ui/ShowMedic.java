@@ -1,6 +1,6 @@
 package com.rag.khavaranmessenger.reminder.ui;
 
-import com.rag.khavaranmessenger.reminder.model.MedicModelApp;
+import com.rag.khavaranmessenger.reminder.main.model.MedicModelApp;
 
 import java.util.List;
 
