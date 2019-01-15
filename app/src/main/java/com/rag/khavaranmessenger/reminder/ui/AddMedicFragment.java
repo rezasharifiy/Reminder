@@ -53,9 +53,22 @@ public class AddMedicFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.save_bt:
-                saveMedic(generateMedic());
+                if (checkfeilds())
+                    saveMedic(generateMedic());
                 break;
         }
+    }
+
+    private boolean checkfeilds() {
+        if (medic_et.getText().equals("")) {
+            showToast(getString(R.string.error_medic_name));
+            return false;
+        }
+        return true;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     private MedicModelApp generateMedic() {
@@ -65,7 +78,7 @@ public class AddMedicFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void saveMedic(MedicModelApp modelApp) {
-        DataRepository dataRepository = new DataRepository(getContext());
+        DataRepository dataRepository =DataRepository.getInstance(getContext());
         SaveMedicPresenter saveMedicPresenter = new SaveMedicPresenter(new SaveMedicUseCase(dataRepository),
                 new ViewModelMapper(), this);
         saveMedicPresenter.initialize(modelApp);
@@ -73,13 +86,13 @@ public class AddMedicFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void showSuccessMessage() {
-        Toast.makeText(getContext(), "ذخیره شد!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.saved, Toast.LENGTH_SHORT).show();
         backToMain();
     }
 
     @Override
     public void showErrorMessage() {
-        Toast.makeText(getContext(), "ذخیره ناموفق!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.error_save, Toast.LENGTH_SHORT).show();
         backToMain();
 
     }

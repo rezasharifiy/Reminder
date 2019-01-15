@@ -18,9 +18,10 @@ public class MedicAdapter extends RecyclerView.Adapter<MedicAdapter.MedicViewHol
 
     private final Context context;
     private final List<MedicModelApp> list;
+    private AdapterClickListerner listerner;
 
-    public MedicAdapter(Context context, List<MedicModelApp> list) {
-
+    public MedicAdapter(Context context, List<MedicModelApp> list, AdapterClickListerner listerner) {
+        this.listerner = listerner;
         this.context = context;
         this.list = list;
     }
@@ -46,12 +47,40 @@ public class MedicAdapter extends RecyclerView.Adapter<MedicAdapter.MedicViewHol
         return 0;
     }
 
-    class MedicViewHolder extends RecyclerView.ViewHolder {
+    class MedicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView medicName;
 
         public MedicViewHolder(@NonNull View itemView) {
             super(itemView);
             medicName = itemView.findViewById(R.id.medic_name_tv);
+            itemView.setOnLongClickListener(this);
+            itemView.setTag(this);
+
         }
+
+        @Override
+        public boolean onLongClick(View v) {
+            MedicViewHolder medicViewHolder = (MedicViewHolder) v.getTag();
+            int pos = medicViewHolder.getLayoutPosition();
+            if (listerner != null) {
+                listerner.onListItemLongClick(pos);
+            }
+            return false;
+        }
+
+        @Override
+        public void onClick(View v) {
+            MedicViewHolder medicViewHolder = (MedicViewHolder) v.getTag();
+            int pos = medicViewHolder.getLayoutPosition();
+            if (listerner != null) {
+                listerner.onListItemClick(pos);
+            }
+        }
+    }
+
+    public interface AdapterClickListerner {
+        void onListItemClick(int pos);
+
+        void onListItemLongClick(int pos);
     }
 }

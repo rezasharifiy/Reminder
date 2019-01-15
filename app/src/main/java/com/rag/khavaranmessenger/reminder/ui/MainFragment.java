@@ -1,5 +1,7 @@
 package com.rag.khavaranmessenger.reminder.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,22 +12,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.developerman.data.database.DataRepository;
+import com.rag.khavaranmessenger.domian.intractor.DeleteMedicUseCase;
 import com.rag.khavaranmessenger.domian.intractor.GetMedicUseCase;
 import com.rag.khavaranmessenger.reminder.R;
 import com.rag.khavaranmessenger.reminder.adapter.MedicAdapter;
 import com.rag.khavaranmessenger.reminder.mapper.ViewModelMapper;
 import com.rag.khavaranmessenger.reminder.model.MedicModelApp;
+import com.rag.khavaranmessenger.reminder.presenters.DeleteMedicPresenter;
 import com.rag.khavaranmessenger.reminder.presenters.GetMedicPresenter;
 
 import java.util.List;
 
-public class MainFragment extends Fragment implements View.OnClickListener, ShowMedic {
+public class MainFragment extends Fragment implements View.OnClickListener, ShowMedic, ShowMessage, MedicAdapter.AdapterClickListerner {
     private FloatingActionButton addButton;
     private RecyclerView recyclerView;
     private MedicAdapter medicAdapter;
     private View view;
+    private List<MedicModelApp> medicModelAppList;
 
 
     public static MainFragment newInstance() {
@@ -48,7 +54,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Show
     }
 
     private void getMedic() {
-        DataRepository dataRepository = new DataRepository(getContext());
+        DataRepository dataRepository =DataRepository.getInstance(getContext());
         GetMedicPresenter presenter = new GetMedicPresenter(new GetMedicUseCase(dataRepository), new ViewModelMapper(), this);
         presenter.initialize(0);
     }
@@ -60,7 +66,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Show
     }
 
     private void setupRecyclerView(List<MedicModelApp> list) {
-        medicAdapter = new MedicAdapter(getContext(), list);
+        medicAdapter = new MedicAdapter(getContext(), list, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(medicAdapter);
     }
@@ -72,6 +78,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Show
 
     @Override
     public void getAllMedic(List<MedicModelApp> medicModelAppList) {
+        this.medicModelAppList = medicModelAppList;
         setupRecyclerView(medicModelAppList);
     }
 
@@ -90,4 +97,53 @@ public class MainFragment extends Fragment implements View.OnClickListener, Show
         }
     }
 
+    @Override
+    public void onListItemClick(int pos) {
+
+    }
+
+    @Override
+    public void onListItemLongClick(int pos) {
+        showDialog(pos, medicModelAppList.get(pos).getRowId());
+    }
+
+    private void showDialog(final int pos, final int id) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setMessage(R.string.remove_message_alert);
+        alertDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                removeItemFromDB(id);
+                removeItemFromList(pos);
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void removeItemFromList(int pos) {
+        medicModelAppList.remove(pos);
+        medicAdapter.notifyItemRemoved(pos);
+    }
+
+    private void removeItemFromDB(int id) {
+        DataRepository dataRepository = DataRepository.getInstance(getContext());
+        DeleteMedicPresenter deleteMedicPresenter = new DeleteMedicPresenter(new DeleteMedicUseCase(dataRepository), this);
+        deleteMedicPresenter.initialize(id);
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+        showToast(message);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -10,5 +10,7 @@ public interface MedicRepository {
 
     MedicModelEntities getMedic(int id);
 
+    boolean insert(MedicModelEntities modelEntities);
 
+    boolean delete(int id);
 }

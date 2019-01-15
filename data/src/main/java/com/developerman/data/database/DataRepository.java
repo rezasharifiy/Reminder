@@ -5,47 +5,55 @@ import android.content.Context;
 import com.developerman.data.mapper.MedicDataMapper;
 import com.rag.khavaranmessenger.domian.model.MedicModelEntities;
 import com.rag.khavaranmessenger.domian.repository.MedicRepository;
-import com.rag.khavaranmessenger.domian.repository.SaveRepository;
 
 import java.util.List;
 
-public class DataRepository implements MedicRepository, SaveRepository {
+public class DataRepository implements MedicRepository {
     private MedicDAO medicDAO;
-    MedicDataMapper medicDataMapper;
+    private MedicDataMapper medicDataMapper;
+    private static DataRepository instance = null;
 
-    public DataRepository(Context context) {
+    private DataRepository(Context context) {
         RoomDatabase db = RoomDatabase.getInstance(context);
         medicDAO = db.dao();
         medicDataMapper = new MedicDataMapper();
     }
 
-    @Override
-    public List<MedicModelEntities> getAllMedic() {
-        return getAllMedicModelEntities();
+    public static DataRepository getInstance(Context context) {
+        if (instance == null) {
+            instance = new DataRepository(context);
+        }
+        return instance;
     }
 
-    @Override
-    public MedicModelEntities getMedic(int id) {
-        return getMedicModelEntities(id);
-    }
 
-    private MedicModelEntities getMedicModelEntities(int id) {
-        return medicDataMapper.transformToEntities(medicDAO.getMedic(id));
-    }
+        @Override
+        public List<MedicModelEntities> getAllMedic () {
+            return getAllMedicModelEntities();
+        }
 
-    private List<MedicModelEntities> getAllMedicModelEntities() {
-        return medicDataMapper.transformToEntities(medicDAO.getAllMedic());
-    }
+        @Override
+        public MedicModelEntities getMedic ( int id){
+            return getMedicModelEntities(id);
+        }
 
-    @Override
-    public boolean insert(MedicModelEntities modelEntities) {
-        medicDAO.insert(medicDataMapper.transformToData(modelEntities));
-        return false;
-    }
+        private MedicModelEntities getMedicModelEntities ( int id){
+            return medicDataMapper.transformToEntities(medicDAO.getMedic(id));
+        }
 
-    @Override
-    public boolean delete(int id) {
-        medicDAO.deleteMedic(id);
-        return false;
+        private List<MedicModelEntities> getAllMedicModelEntities () {
+            return medicDataMapper.transformToEntities(medicDAO.getAllMedic());
+        }
+
+        @Override
+        public boolean insert (MedicModelEntities modelEntities){
+            medicDAO.insert(medicDataMapper.transformToData(modelEntities));
+            return false;
+        }
+
+        @Override
+        public boolean delete ( int id){
+            medicDAO.deleteMedic(id);
+            return false;
+        }
     }
-}

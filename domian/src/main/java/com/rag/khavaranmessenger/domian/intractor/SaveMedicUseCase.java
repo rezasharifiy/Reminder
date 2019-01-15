@@ -1,14 +1,14 @@
 package com.rag.khavaranmessenger.domian.intractor;
 
 import com.rag.khavaranmessenger.domian.model.MedicModelEntities;
-import com.rag.khavaranmessenger.domian.repository.SaveRepository;
+import com.rag.khavaranmessenger.domian.repository.MedicRepository;
 
 public class SaveMedicUseCase implements SaveUseCase<MedicModelEntities> {
-    private SaveRepository saveRepository;
+    private MedicRepository medicRepository;
 
 
-    public SaveMedicUseCase(SaveRepository saveRepository) {
-        this.saveRepository = saveRepository;
+    public SaveMedicUseCase(MedicRepository saveRepository) {
+        this.medicRepository = saveRepository;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class SaveMedicUseCase implements SaveUseCase<MedicModelEntities> {
 
     private void sendCallBack(MedicModelEntities medic, InsertCallBack callBack) {
         try {
-            callBack.onSuccessInsert(saveRepository.insert(medic));
+            callBack.onSuccessInsert(medicRepository.insert(medic));
         } catch (Exception e) {
             callBack.onErrorInsert(e);
         }

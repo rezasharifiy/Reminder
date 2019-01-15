@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import com.rag.khavaranmessenger.reminder.R;
 import com.rag.khavaranmessenger.reminder.general.BaseActivity;
 import com.rag.khavaranmessenger.reminder.main.model.MainModel;
-import com.rag.khavaranmessenger.reminder.main.presenter.MainPresenter;
 import com.rag.khavaranmessenger.reminder.main.view.MainView;
 
 public class MainActivity extends BaseActivity implements SwitchFragment {
@@ -25,8 +24,8 @@ public class MainActivity extends BaseActivity implements SwitchFragment {
         MainView mainView = new MainView();
         MainModel mainModel = new MainModel();
 
-        MainPresenter mainPresenter = new MainPresenter();
-        mainPresenter.onCreate(mainModel, mainView);
+//        MainPresenter mainPresenter = new MainPresenter();
+//        mainPresenter.onCreate(mainModel, mainView);
     }
 
 

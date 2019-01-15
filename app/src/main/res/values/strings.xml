@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Reminder</string>
+    <string name="remove_message_alert">ایا مایل به حذف هستید؟</string>
+    <string name="cancel">انصراف</string>
+    <string name="confirm">تایید</string>
+    <string name="saved">ذخیره شد!</string>
+    <string name="error_save">ذخیره ناموفق!</string>
+    <string name="error_medic_name">لطفا نام دارو را وارد کنید!</string>
 </resources>
