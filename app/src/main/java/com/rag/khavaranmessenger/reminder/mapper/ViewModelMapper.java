@@ -1,7 +1,7 @@
 package com.rag.khavaranmessenger.reminder.mapper;
 
 import com.rag.khavaranmessenger.domian.model.MedicModelEntities;
-import com.rag.khavaranmessenger.reminder.model.MedicModelApp;
+import com.rag.khavaranmessenger.reminder.main.model.MedicModelApp;
 
 import java.util.ArrayList;
 import java.util.List;

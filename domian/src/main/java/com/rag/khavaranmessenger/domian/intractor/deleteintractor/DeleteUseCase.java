@@ -1,4 +1,4 @@
-package com.rag.khavaranmessenger.domian.intractor;
+package com.rag.khavaranmessenger.domian.intractor.deleteintractor;
 
 public interface DeleteUseCase<I> {
     interface DeleteCallBack {

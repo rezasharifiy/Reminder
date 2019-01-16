@@ -1,7 +1,7 @@
-package com.rag.khavaranmessenger.reminder.presenters;
+package com.rag.khavaranmessenger.reminder.main.presenter;
 
-import com.rag.khavaranmessenger.domian.intractor.DeleteMedicUseCase;
-import com.rag.khavaranmessenger.domian.intractor.DeleteUseCase;
+import com.rag.khavaranmessenger.domian.intractor.deleteintractor.DeleteMedicUseCase;
+import com.rag.khavaranmessenger.domian.intractor.deleteintractor.DeleteUseCase;
 import com.rag.khavaranmessenger.reminder.ui.ShowMessage;
 
 public class DeleteMedicPresenter implements DeleteUseCase.DeleteCallBack {
