@@ -27,6 +27,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(path: ':domian')
     implementation project(':data')
-    implementation project(':device')
     implementation 'com.android.support:design:28.0.0'
 }
