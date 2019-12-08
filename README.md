@@ -1,2 +1,2 @@
 # Reminder
-## Sample Project from Clean Architecture
+## Sample Project from with Architecture
